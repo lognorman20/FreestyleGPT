@@ -11,6 +11,7 @@
 		B41E5F0829A366D7002684EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F0729A366D7002684EE /* ContentView.swift */; };
 		B41E5F0A29A366DC002684EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41E5F0929A366DC002684EE /* Assets.xcassets */; };
 		B41E5F0D29A366DC002684EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41E5F0C29A366DC002684EE /* Preview Assets.xcassets */; };
+		B41E5F1429A36718002684EE /* ChatGPTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1329A36718002684EE /* ChatGPTAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,8 @@
 		B41E5F0729A366D7002684EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B41E5F0929A366DC002684EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B41E5F0C29A366DC002684EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B41E5F1329A36718002684EE /* ChatGPTAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPI.swift; sourceTree = "<group>"; };
+		B41E5F1529A420F6002684EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +54,12 @@
 		B41E5F0429A366D7002684EE /* LogGPT */ = {
 			isa = PBXGroup;
 			children = (
+				B41E5F1529A420F6002684EE /* Info.plist */,
 				B41E5F0529A366D7002684EE /* LogGPTApp.swift */,
 				B41E5F0729A366D7002684EE /* ContentView.swift */,
 				B41E5F0929A366DC002684EE /* Assets.xcassets */,
 				B41E5F0B29A366DC002684EE /* Preview Content */,
+				B41E5F1329A36718002684EE /* ChatGPTAPI.swift */,
 			);
 			path = LogGPT;
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B41E5F1429A36718002684EE /* ChatGPTAPI.swift in Sources */,
 				B41E5F0829A366D7002684EE /* ContentView.swift in Sources */,
 				B41E5F0629A366D7002684EE /* LogGPTApp.swift in Sources */,
 			);
@@ -270,7 +276,7 @@
 				DEVELOPMENT_TEAM = JSF53DFS29;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = LogGPT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -299,7 +305,7 @@
 				DEVELOPMENT_TEAM = JSF53DFS29;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = LogGPT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
