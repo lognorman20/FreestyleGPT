@@ -46,8 +46,6 @@
 		B41E5EF929A366D7002684EE = {
 			isa = PBXGroup;
 			children = (
-				B41E5F1C29A4523E002684EE /* DotLoadingView.swift */,
-				B41E5F1E29A45310002684EE /* MessageRowView.swift */,
 				B41E5F0429A366D7002684EE /* LogGPT */,
 				B41E5F0329A366D7002684EE /* Products */,
 			);
@@ -64,6 +62,8 @@
 		B41E5F0429A366D7002684EE /* LogGPT */ = {
 			isa = PBXGroup;
 			children = (
+				B41E5F1C29A4523E002684EE /* DotLoadingView.swift */,
+				B41E5F1E29A45310002684EE /* MessageRowView.swift */,
 				B41E5F1529A420F6002684EE /* Info.plist */,
 				B41E5F0529A366D7002684EE /* LogGPTApp.swift */,
 				B41E5F0729A366D7002684EE /* ContentView.swift */,
