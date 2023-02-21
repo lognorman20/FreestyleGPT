@@ -23,10 +23,20 @@ struct ContentView: View {
             Task {
                 let api = ChatGPTAPI(apiKey: apiKey!)
                 do {
-                    let stream = try await api.sendMessageStream(text: "Why is Lebron James the best basketball player of all time?")
-                    for try await line in stream {
-                        print(line)
-                    }
+                    // speedy way
+                    let text1 = "Who is Lebron?"
+                    let text2 = "How many championships has he won?"
+//                    let stream = try await api.sendMessageStream(text: text)
+//                    for try await line in stream {
+//                        print(line)
+//                    }
+                    
+                    // slow way
+                    let response1 = try await api.sendMessage(text1)
+                    print(response1)
+                    
+                    let response2 = try await api.sendMessage(text2)
+                    print(response2)
                 } catch {
                     print(error.localizedDescription)
                 }

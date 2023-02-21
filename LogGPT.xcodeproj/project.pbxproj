@@ -12,6 +12,10 @@
 		B41E5F0A29A366DC002684EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41E5F0929A366DC002684EE /* Assets.xcassets */; };
 		B41E5F0D29A366DC002684EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41E5F0C29A366DC002684EE /* Preview Assets.xcassets */; };
 		B41E5F1429A36718002684EE /* ChatGPTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1329A36718002684EE /* ChatGPTAPI.swift */; };
+		B41E5F1729A44B4D002684EE /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1629A44B4C002684EE /* ViewModel.swift */; };
+		B41E5F1B29A44BBB002684EE /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1A29A44BBB002684EE /* MessageRow.swift */; };
+		B41E5F1D29A4523E002684EE /* DotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1C29A4523E002684EE /* DotLoadingView.swift */; };
+		B41E5F1F29A45311002684EE /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1E29A45310002684EE /* MessageRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		B41E5F0C29A366DC002684EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B41E5F1329A36718002684EE /* ChatGPTAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPI.swift; sourceTree = "<group>"; };
 		B41E5F1529A420F6002684EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B41E5F1629A44B4C002684EE /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		B41E5F1A29A44BBB002684EE /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
+		B41E5F1C29A4523E002684EE /* DotLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoadingView.swift; sourceTree = "<group>"; };
+		B41E5F1E29A45310002684EE /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +46,8 @@
 		B41E5EF929A366D7002684EE = {
 			isa = PBXGroup;
 			children = (
+				B41E5F1C29A4523E002684EE /* DotLoadingView.swift */,
+				B41E5F1E29A45310002684EE /* MessageRowView.swift */,
 				B41E5F0429A366D7002684EE /* LogGPT */,
 				B41E5F0329A366D7002684EE /* Products */,
 			);
@@ -60,6 +70,8 @@
 				B41E5F0929A366DC002684EE /* Assets.xcassets */,
 				B41E5F0B29A366DC002684EE /* Preview Content */,
 				B41E5F1329A36718002684EE /* ChatGPTAPI.swift */,
+				B41E5F1629A44B4C002684EE /* ViewModel.swift */,
+				B41E5F1A29A44BBB002684EE /* MessageRow.swift */,
 			);
 			path = LogGPT;
 			sourceTree = "<group>";
@@ -144,7 +156,11 @@
 			files = (
 				B41E5F1429A36718002684EE /* ChatGPTAPI.swift in Sources */,
 				B41E5F0829A366D7002684EE /* ContentView.swift in Sources */,
+				B41E5F1729A44B4D002684EE /* ViewModel.swift in Sources */,
+				B41E5F1D29A4523E002684EE /* DotLoadingView.swift in Sources */,
 				B41E5F0629A366D7002684EE /* LogGPTApp.swift in Sources */,
+				B41E5F1F29A45311002684EE /* MessageRowView.swift in Sources */,
+				B41E5F1B29A44BBB002684EE /* MessageRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
