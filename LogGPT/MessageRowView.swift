@@ -71,7 +71,7 @@ struct MessageRowView_Previews: PreviewProvider {
     
     static let messageRow2 = MessageRow(isInteractingWithChatGPT: false, sendImage: "profile", sendText: text, responseImage: "openai", responseText: "", responseError: "MAN WHAT??")
     static var previews: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 MessageRowView(messageRow: messageRow, retryCallback: { messageRow in })
                 MessageRowView(messageRow: messageRow2, retryCallback: { messageRow in })

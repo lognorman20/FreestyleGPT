@@ -67,7 +67,7 @@ class ChatGPTAPI {
         let jsonBody: [String: Any] = [
             "model" : "text-davinci-003",
             "prompt" : text,
-            "max_tokens" :  200,
+            "max_tokens" :  375,
             "temperature" : 0.9,
             "stop": [
                 "\n\n\n",
