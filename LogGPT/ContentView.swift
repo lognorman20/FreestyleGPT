@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     // get the api key from environment variable
-    let apiKey = ProcessInfo.processInfo.environment["apiKey"]
+    let apiKey = "***REMOVED***"
     
     @Environment(\.colorScheme) private var colorScheme
     @StateObject var vm = ViewModel(api: ChatGPTAPI(apiKey: ProcessInfo.processInfo.environment["apiKey"]!))

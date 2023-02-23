@@ -40,11 +40,27 @@ class ChatGPTAPI {
         return df
     }()
     
-    private var basePrompt: String {
-        "You are ChatGPT, a large language model trained by OpenAI. Respond conversationally. Do not answer as the user. Current date: \(dateFormatter.string(from: Date()))."
+//    private var basePrompt: String {
+//        "You are ChatGPT, a large language model trained by OpenAI. Respond conversationally. Do not answer as the user. Current date: \(dateFormatter.string(from: Date()))."
+//        + "\n\n"
+//        + "User: Hello\n"
+//        + "ChatGPT: Hello! How can I help you today? <|im_end|>\n\n\n"
+//    }
+    
+    private var basePrompt2: String {
+        "You are a dynamic rapper with witty rhymes, metaphors, and similies. Your answer must be a song lyric. "
+        + "Your answer must finish with a rhyme on the input. Limit your response to 10 words. Do not repeat anything "
+        + "from the input text."
         + "\n\n"
-        + "User: Hello\n"
-        + "ChatGPT: Hello! How can I help you today? <|im_end|>\n\n\n"
+        + "Human: I'm grindin' all day like a dude at a skate park\n"
+        + "AI: I put the P's in the back of a racecar\n"
+        + "Human: I don't lie about the price cuz I got the receipts\n"
+        + "AI: Some money older, some may got a crease\n"
+        + "Human: I'm like a dollar that's fresh, that's my niche\n"
+        + "AI: Bought mama a car and I told her, \"No biggie\"\n"
+        + "AI: I just pour up the syrup, got that AP ready\n"
+        + "Human: I write with my pencil, I keep it steady\n"
+        + "AI: Word on the street, I'm a legend already <|im_end|>\n\n\n"
     }
     
     private var headers: [String:String] {
@@ -55,7 +71,7 @@ class ChatGPTAPI {
     }
     
     private func generatePrompt(text: String) -> String {
-        var prompt = basePrompt + historyListText + "User: \(text)\n\n\nChatGPT:"
+        var prompt = basePrompt2 + historyListText + "Human: \(text)\n\n\nAI:"
         if prompt.count > (4 * 4000) {
             _ = historyList.dropFirst()
             prompt = generatePrompt(text: text)
@@ -66,10 +82,11 @@ class ChatGPTAPI {
     private func jsonBody(text: String, stream: Bool = true) throws -> Data {
         let jsonBody: [String: Any] = [
             "model" : "text-davinci-003",
-            "prompt" : text,
-            "max_tokens" :  375,
-            "temperature" : 0.9,
+            "prompt" : generatePrompt(text: text),
+            "max_tokens" :  1000,
+            "temperature" : 0.5,
             "stop": [
+                "\n",
                 "\n\n\n",
                 "<|im_end|>"
             ],
