@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftfulLoadingIndicators
 
+@available(iOS 16.0, *)
 struct ChatView: View {
     
     @State var inputText: String = ""
@@ -66,9 +67,10 @@ struct ChatView: View {
     
     var bottomView: some View {
         ZStack(alignment: .trailing) {
-            TextField("What's on your mind?", text: $inputText)
+            TextField("What's the next bar?", text: $inputText, axis: .vertical)
                 .padding()
                 .focused($isTextFieldFocused)
+                .multilineTextAlignment(.leading)
                 .onSubmit {
                     if (!inputText.isEmpty) {
                         isTextFieldFocused = false
@@ -81,8 +83,8 @@ struct ChatView: View {
                         .fill(.white)
                         .shadow(radius: 2)
                 )
-                .padding(.horizontal)
-                .multilineTextAlignment(.leading)
+                .frame(width:300)
+                .padding(.trailing, 30)
             
             Button {
                 if (!inputText.isEmpty) {
@@ -95,7 +97,7 @@ struct ChatView: View {
                     .font(.system(size: 40))
                     .foregroundColor(MyColors.mainPurple)
                     .rotationEffect(.degrees(90))
-                    .padding(.trailing, 20)
+                    .padding(.trailing, -20)
             }
         }
         .padding()
@@ -148,11 +150,15 @@ struct ChatView: View {
             
             Spacer()
             
-            Text("FreestyleGPT")
-                .font(.title)
-                .fontWeight(.semibold)
-                .foregroundColor(Color("deeppurple"))
-                .padding()
+            VStack(spacing: 0) {
+                Text("FreestyleGPT")
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("deeppurple"))
+                
+                Text("by Logan Norman")
+                    .font(.footnote)
+            }
                 
             Spacer()
             
