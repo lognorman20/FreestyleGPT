@@ -140,9 +140,9 @@ struct ChatView: View {
         HStack(alignment: .center) {
             
             Button {
-                print("left side was clicked")
+                model.clear()
             } label: {
-                Image(systemName: "line.3.horizontal.decrease.circle")
+                Image(systemName: "arrow.uturn.forward.circle")
                     .padding()
                     .font(.system(size: 30))
                     .foregroundColor(MyColors.mainPurple)

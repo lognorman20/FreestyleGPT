@@ -96,10 +96,10 @@ class ChatGPTAPI {
             "model" : "text-davinci-003",
             "prompt" : generatePrompt(text: text),
             "max_tokens" :  2000,
-            "temperature" : 0.5,
+            "temperature" : 1,
             "frequency_penalty" : 2,
             "best_of": 3,
-            "presence_penalty" : 2,
+            "presence_penalty" : 0,
             "stop": [
                 "\n",
                 "\n\n\n",

@@ -35,4 +35,9 @@ class ModelView : ObservableObject {
         }
         isBusy = false
     }
+    
+    @MainActor
+    func clear() {
+        messages.removeAll()
+    }
 }

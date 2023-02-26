@@ -63,4 +63,5 @@ class ViewModel : ObservableObject {
         self.messages[self.messages.count - 1] = messageRow
         isInteractingWithGPT = false
     }
+    
 }
