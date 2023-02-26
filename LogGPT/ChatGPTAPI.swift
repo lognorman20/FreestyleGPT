@@ -110,43 +110,8 @@ class ChatGPTAPI {
         return try JSONSerialization.data(withJSONObject: jsonBody)
     }
     
-    func sendMessageStream(text: String) async throws -> AsyncThrowingStream<String, Error> {
-        var urlRequest = self.urlRequest
-        urlRequest.httpBody = try jsonBody(text: text)
-        
-        let (result, response) = try await urlSession.bytes(for: urlRequest)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw "Invalid response"
-        }
-        
-        guard 200...299 ~= httpResponse.statusCode else {
-            throw "Bad response \(httpResponse.statusCode)"
-        }
-        
-        return AsyncThrowingStream<String, Error> { continuation in
-            Task(priority: .userInitiated) {
-                do {
-                    var streamText = ""
-                    for try await line in result.lines {
-                        if line.hasPrefix("data: "),
-                           let data = line.dropFirst(6).data(using: .utf8),
-                           let response = try? self.jsonDecoder.decode(CompletionResponse.self, from: data),
-                           let text = response.choices.first?.text {
-                            continuation.yield(text)
-                            streamText += text
-                        }
-                    }
-                    lastResponse = streamText
-                    lastInput = text
-                    continuation.finish()
-                } catch {
-                    continuation.finish(throwing: .some(error))
-                }
-            }
-        }
-    }
-    
+    // TODO: Make a function to handle duplicate rhyme words
+    // TODO: Handle when the api returns nothing
     func sendMessage(_ text: String) async throws -> String {
         var urlRequest = self.urlRequest
         urlRequest.httpBody = try jsonBody(text: text, stream: false)
@@ -167,6 +132,7 @@ class ChatGPTAPI {
             lastResponse = responseText
             lastInput = text
             
+            print(response)
             return responseText
         } catch {
             print("Error: \(error)")

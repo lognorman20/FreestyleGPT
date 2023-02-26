@@ -17,20 +17,19 @@ class ModelView : ObservableObject {
     
     init(apiKey: String) {
         self.isBusy = false
-        self.messages = [Message(content: "This app's unexpected like a mixtape", response: "Catch you at yo' crib, if you're readin' this, it's too late")]
+        self.messages = [Message(content: "This app's unexpected like a mixtape", response: "Catch you at yo' crib, if you're readin' this, it's too late", id: UUID())]
         self.api = ChatGPTAPI(apiKey: apiKey)
     }
     
     // send request to api
     @MainActor
     func getResponse(text: String) async throws {
-        print("tryna get response")
         isBusy = true
         do {
             let response = try await api.sendMessage(text).trimmingCharacters(in: .whitespacesAndNewlines)
-            let responseMessage = Message(content: text, response: response)
+            let responseMessage = Message(content: text, response: response, id: UUID())
             print("this was the response message")
-            print(response)
+            print(response.isEmpty ? response : "The response was empty bro")
             messages.append(responseMessage)
         } catch {
             print("Error getting response from api.")

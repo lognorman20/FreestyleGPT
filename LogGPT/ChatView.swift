@@ -13,12 +13,6 @@ import AVFoundation
 struct ChatView: View {
     
     @State var inputText: String = ""
-    @State var messages: [Message] = [
-        Message(content: "Who is Lebron James?", response: "Lebron James is the greatest basketball player of all time. He's won 4 MVPs and got snubbed for multiple others. On top of that, he played with Russell Westbook, who is clearly the cheat code in all of basketball."),
-        Message(content: "What are zero-knowledge proofs?", response: "In cryptography, a zero-knowledge proof or zero-knowledge protocol is a method by which one party can prove to another party that a given statement is true while the prover avoids conveying any additional information apart from the fact that the statement is indeed true."),
-        Message(content: "Who is Jesus Christ?", response: "Jesus, also called Jesus Christ, Jesus of Galilee, or Jesus of Nazareth, (born c. 6–4 bce, Bethlehem—died c. 30 ce, Jerusalem), religious leader revered in Christianity, one of the world's major religions. He is regarded by most Christians as the Incarnation of God."),
-    ]
-    
     @StateObject var model: ModelView = ModelView(apiKey: "***REMOVED***")
     @FocusState var isTextFieldFocused: Bool
 
@@ -51,7 +45,7 @@ struct ChatView: View {
             
             ScrollViewReader { proxy in
                 ScrollView {
-                    Text("Type in a bar with more than five words to get started")
+                    Text("type in a lyric with more than five words to get started")
                         .font(.callout)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
@@ -75,7 +69,6 @@ struct ChatView: View {
                     }
                 }
             }
-            
         }
     }
     
@@ -178,11 +171,12 @@ struct ChatView: View {
             
             Spacer()
             
-            // TODO: add a play button that plays the whole song so far
             Button {
                 model.messages.forEach { message in
-                    // scroll to the current message
-                    scrollProxy!.scrollTo(message.id, anchor: .bottomTrailing)
+                    // TODO: fix scroll to
+                    withAnimation(.easeInOut) {
+                        scrollProxy!.scrollTo(message.id, anchor: .center)
+                    }
                     
                     let inputVoice = AVSpeechUtterance(string: message.content)
                     let responseVoice = AVSpeechUtterance(string: message.response)
@@ -205,9 +199,15 @@ struct ChatView: View {
 }
 
 struct Message : Identifiable {
-    let id = UUID()
     let content: String
     let response: String
+    let id: UUID?
+    
+    init(content: String, response: String, id: UUID?) {
+        self.content = content
+        self.response = response
+        self.id = id
+    }
 }
 
 struct ChatView_Previews: PreviewProvider {
