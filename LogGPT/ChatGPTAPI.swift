@@ -11,7 +11,8 @@ class ChatGPTAPI {
     
     private let apiKey: String
     private let urlSession = URLSession.shared
-    private var historyList = [String]()
+    private var lastResponse = ""
+    private var lastInput = ""
     
     private let jsonDecoder = JSONDecoder()
     
@@ -28,10 +29,6 @@ class ChatGPTAPI {
         }
         
         return urlRequest
-    }
-    
-    private var historyListText: String {
-        historyList.joined()
     }
     
     let dateFormatter: DateFormatter = {
@@ -64,9 +61,10 @@ class ChatGPTAPI {
     //    }
     
     private var basePrompt3: String {
-        "Reply with a rap lyric that rhymes with the last input from the human. Stop after the word that rhymes with the input. "
-        + "Don't repeat the last word from the input. The last word of your response must rhyme with the last word from the input. "
-        + "\n\n"
+//        "Reply with a rap lyric that rhymes with the last input from the human. Stop after the word that rhymes with the input. "
+//        + "Don't repeat the last word from the input. The last word of your response must rhyme with the last word from the input. "
+//        + "\n\n"
+        "Reply with a rhyming rap lyric in less than ten words. Don't repeat the last word from the input.\n\n\n"
         + "Human: In 1402, Columbus sailed the ocean blue\n"
         + "AI: I'm the coldest AI in the world, and in the metaverse too\n"
         + "Human: I'm grinding all day like a dude at the skate park\n"
@@ -87,12 +85,9 @@ class ChatGPTAPI {
     }
     
     private func generatePrompt(text: String) -> String {
-        // removed history list
-        var prompt = basePrompt3 + "Human: \(text)\n\n\nAI:"
-        if prompt.count > (4 * 4000) {
-            _ = historyList.dropFirst()
-            prompt = generatePrompt(text: text)
-        }
+        // take into account the last message
+        let prompt = basePrompt3 + "Human: \(lastInput)\n" + "AI: \(lastResponse)\n" + "Human: \(text)\n\n\nAI:"
+        print(prompt + "\nEND PROMPT\n")
         return prompt
     }
     
@@ -100,8 +95,11 @@ class ChatGPTAPI {
         let jsonBody: [String: Any] = [
             "model" : "text-davinci-003",
             "prompt" : generatePrompt(text: text),
-            "max_tokens" :  1000,
+            "max_tokens" :  2000,
             "temperature" : 0.5,
+            "frequency_penalty" : 2,
+            "best_of": 3,
+            "presence_penalty" : 2,
             "stop": [
                 "\n",
                 "\n\n\n",
@@ -139,7 +137,8 @@ class ChatGPTAPI {
                             streamText += text
                         }
                     }
-                    historyList.append(streamText)
+                    lastResponse = streamText
+                    lastInput = text
                     continuation.finish()
                 } catch {
                     continuation.finish(throwing: .some(error))
@@ -164,9 +163,11 @@ class ChatGPTAPI {
         
         do {
             let response = try self.jsonDecoder.decode(CompletionResponse.self, from: data)
-            let text = response.choices.first?.text ?? "Couldn't get a response."
-            self.historyList.append(text)
-            return text
+            let responseText = response.choices.first?.text ?? "Couldn't get a response."
+            lastResponse = responseText
+            lastInput = text
+            
+            return responseText
         } catch {
             throw error
         }

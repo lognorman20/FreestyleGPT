@@ -156,7 +156,7 @@ struct ChatView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(Color("deeppurple"))
                 
-                Text("by Logan Norman")
+                Text("from @zklogno")
                     .font(.footnote)
             }
                 
