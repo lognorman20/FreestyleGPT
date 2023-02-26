@@ -15,7 +15,7 @@ struct ChatView: View {
     @State var inputText: String = ""
     @State var isModal: Bool = false
     @State var scrollProxy: ScrollViewProxy?
-    @StateObject var model: ModelView = ModelView(apiKey: "***REMOVED***")
+    @StateObject var model: ModelView = ModelView(apiKey: ProcessInfo.processInfo.environment["apiKey"]!)
     @ObservedObject var allMsgs = Messages()
     @FocusState var isTextFieldFocused: Bool
     
@@ -209,10 +209,23 @@ struct ChatView: View {
         }
     }
     
+    // TODO: Build out UI for modal view
     var speakView: some View {
         VStack(alignment: .center) {
-            ForEach(self.allMsgs.data, id: \.self) { msg in
-                Text(msg)
+            ForEach(self.allMsgs.data, id: \.id) { msg in
+                Text(msg.text)
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding()
+            }
+        }
+        .onAppear {
+            // TODO: Figure out how to make each lyric light up when being read
+            self.allMsgs.data.forEach { msg in
+                msg.isSelected = true
+                textToSpeech(message: msg.text)
+                msg.isSelected = false
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -221,14 +234,27 @@ struct ChatView: View {
 }
 
 class Messages : ObservableObject {
-    @Published var data: [String] = []
+    @Published var data: [ReadableMessage] = []
     
     func addMsg(text: String) {
-        self.data.append(text)
+        let newMsg: ReadableMessage = ReadableMessage(id: UUID(), text: text, isSelected: false)
+        data.append(newMsg)
     }
     
     func clear() {
         self.data.removeAll()
+    }
+}
+
+class ReadableMessage : ObservableObject {
+    let id: UUID
+    let text: String
+    @Published var isSelected: Bool
+    
+    init(id: UUID, text: String, isSelected: Bool) {
+        self.id = id
+        self.text = text
+        self.isSelected = isSelected
     }
 }
 

@@ -31,12 +31,6 @@ class ChatGPTAPI {
         return urlRequest
     }
     
-    let dateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateFormat = "YYYY-MM-dd"
-        return df
-    }()
-    
     //    private var basePrompt: String {
     //        "You are ChatGPT, a large language model trained by OpenAI. Respond conversationally. Do not answer as the user. Current date: \(dateFormatter.string(from: Date()))."
     //        + "\n\n"
@@ -98,7 +92,7 @@ class ChatGPTAPI {
             "temperature" : 1,
             "top_p" : 0.5,
             "frequency_penalty" : 2,
-//            "best_of": 3,
+            "best_of": 3,
             "presence_penalty" : 0,
             "stop": [
                 "\n",
