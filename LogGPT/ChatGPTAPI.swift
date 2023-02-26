@@ -87,7 +87,6 @@ class ChatGPTAPI {
     private func generatePrompt(text: String) -> String {
         // take into account the last message
         let prompt = basePrompt3 + "Human: \(lastInput)\n" + "AI: \(lastResponse)\n" + "Human: \(text)\nAI: "
-        print(prompt + "\nEND PROMPT\n")
         return prompt
     }
     
@@ -170,6 +169,7 @@ class ChatGPTAPI {
             
             return responseText
         } catch {
+            print("Error: \(error)")
             throw error
         }
     }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftfulLoadingIndicators
+import AVFoundation
 
 @available(iOS 16.0, *)
 struct ChatView: View {
@@ -20,7 +21,9 @@ struct ChatView: View {
     
     @StateObject var model: ModelView = ModelView(apiKey: "***REMOVED***")
     @FocusState var isTextFieldFocused: Bool
-    
+
+    let synthesizer = AVSpeechSynthesizer()
+
     var body: some View {
         VStack(alignment: .center) {
             topView
@@ -47,7 +50,7 @@ struct ChatView: View {
             
             ScrollViewReader { proxy in
                 ScrollView {
-                    Text("Type in a lyric with more than five words to get started")
+                    Text("Type in a bar with more than five words to get started")
                         .font(.callout)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
@@ -102,7 +105,7 @@ struct ChatView: View {
             } label: {
                 Image(systemName: "arrow.up.circle.fill")
                     .font(.system(size: 40))
-                    .foregroundColor(inputText.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
+                    .foregroundColor(model.messages.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
                     .rotationEffect(.degrees(90))
                     .padding(.trailing, -20)
             }
@@ -147,7 +150,7 @@ struct ChatView: View {
         HStack(alignment: .center) {
             
             Button {
-                withAnimation(.linear) {
+                withAnimation(.easeInOut) {
                     model.clear()
                 }
             } label: {
@@ -171,13 +174,20 @@ struct ChatView: View {
             
             Spacer()
             
+            // add a play button that plays the whole song so far
             Button {
-                print("right side was clicked")
+                model.messages.forEach { message in
+                    print("Input: " + message.content + "\n")
+                    print("Output: " + message.response + "\n")
+                }
+//                let utterance = AVSpeechUtterance(string: "Hello, world!")
+//                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+//                synthesizer.speak(utterance)
             } label: {
-                Image(systemName: "camera.filters")
+                Image(systemName: "play.circle")
                     .padding()
                     .font(.system(size: 30))
-                    .foregroundColor(MyColors.mainPurple)
+                    .foregroundColor(model.messages.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
             }
         }
     }
