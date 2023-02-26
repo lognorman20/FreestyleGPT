@@ -24,10 +24,13 @@ class ModelView : ObservableObject {
     // send request to api
     @MainActor
     func getResponse(text: String) async throws {
+        print("tryna get response")
         isBusy = true
         do {
             let response = try await api.sendMessage(text).trimmingCharacters(in: .whitespacesAndNewlines)
             let responseMessage = Message(content: text, response: response)
+            print("this was the response message")
+            print(response)
             messages.append(responseMessage)
         } catch {
             print("Error getting response from api.")

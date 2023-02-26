@@ -23,6 +23,7 @@ struct ChatView: View {
     @FocusState var isTextFieldFocused: Bool
 
     let synthesizer = AVSpeechSynthesizer()
+    @State var scrollProxy: ScrollViewProxy?
 
     var body: some View {
         VStack(alignment: .center) {
@@ -62,6 +63,9 @@ struct ChatView: View {
                             messageBlock(message: msg)
                                 .id(UUID())
                         }
+                    }
+                    .onAppear {
+                        scrollProxy = proxy
                     }
                     .onChange(of: model.messages.last?.content) { _ in
                         withAnimation(Animation.easeInOut(duration: 1)) {
@@ -105,7 +109,7 @@ struct ChatView: View {
             } label: {
                 Image(systemName: "arrow.up.circle.fill")
                     .font(.system(size: 40))
-                    .foregroundColor(model.messages.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
+                    .foregroundColor(inputText.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
                     .rotationEffect(.degrees(90))
                     .padding(.trailing, -20)
             }
@@ -174,15 +178,22 @@ struct ChatView: View {
             
             Spacer()
             
-            // add a play button that plays the whole song so far
+            // TODO: add a play button that plays the whole song so far
             Button {
                 model.messages.forEach { message in
-                    print("Input: " + message.content + "\n")
-                    print("Output: " + message.response + "\n")
+                    // scroll to the current message
+                    scrollProxy!.scrollTo(message.id, anchor: .bottomTrailing)
+                    
+                    let inputVoice = AVSpeechUtterance(string: message.content)
+                    let responseVoice = AVSpeechUtterance(string: message.response)
+                    
+                    inputVoice.voice = AVSpeechSynthesisVoice(language: "en-US")
+                    
+                    responseVoice.voice = AVSpeechSynthesisVoice(language: "en-US")
+                    
+                    synthesizer.speak(inputVoice)
+                    synthesizer.speak(responseVoice)
                 }
-//                let utterance = AVSpeechUtterance(string: "Hello, world!")
-//                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-//                synthesizer.speak(utterance)
             } label: {
                 Image(systemName: "play.circle")
                     .padding()
