@@ -42,11 +42,18 @@ struct ChatView: View {
         ZStack(alignment: .center) {
             if (model.isBusy) {
                 LoadingIndicator(animation: .threeBallsBouncing, color: MyColors.mainPurple, size: .extraLarge)
-                .zIndex(1)
+                    .zIndex(1)
             }
-
+            
             ScrollViewReader { proxy in
                 ScrollView {
+                    Text("Type in a lyric with more than five words to get started")
+                        .font(.callout)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                        .padding(.top)
+                    
                     LazyVStack(alignment: .center, spacing: 5) {
                         ForEach(model.messages) { msg in
                             messageBlock(message: msg)
@@ -95,7 +102,7 @@ struct ChatView: View {
             } label: {
                 Image(systemName: "arrow.up.circle.fill")
                     .font(.system(size: 40))
-                    .foregroundColor(MyColors.mainPurple)
+                    .foregroundColor(inputText.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
                     .rotationEffect(.degrees(90))
                     .padding(.trailing, -20)
             }
@@ -140,12 +147,14 @@ struct ChatView: View {
         HStack(alignment: .center) {
             
             Button {
-                model.clear()
+                withAnimation(.linear) {
+                    model.clear()
+                }
             } label: {
                 Image(systemName: "arrow.uturn.forward.circle")
                     .padding()
                     .font(.system(size: 30))
-                    .foregroundColor(MyColors.mainPurple)
+                    .foregroundColor(model.messages.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
             }
             
             Spacer()
@@ -159,7 +168,7 @@ struct ChatView: View {
                 Text("from @zklogno")
                     .font(.footnote)
             }
-                
+            
             Spacer()
             
             Button {

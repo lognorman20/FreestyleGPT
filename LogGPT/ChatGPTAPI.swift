@@ -86,7 +86,7 @@ class ChatGPTAPI {
     
     private func generatePrompt(text: String) -> String {
         // take into account the last message
-        let prompt = basePrompt3 + "Human: \(lastInput)\n" + "AI: \(lastResponse)\n" + "Human: \(text)\n\n\nAI:"
+        let prompt = basePrompt3 + "Human: \(lastInput)\n" + "AI: \(lastResponse)\n" + "Human: \(text)\nAI: "
         print(prompt + "\nEND PROMPT\n")
         return prompt
     }
@@ -97,6 +97,7 @@ class ChatGPTAPI {
             "prompt" : generatePrompt(text: text),
             "max_tokens" :  2000,
             "temperature" : 1,
+            "top_p" : 0.5,
             "frequency_penalty" : 2,
             "best_of": 3,
             "presence_penalty" : 0,
