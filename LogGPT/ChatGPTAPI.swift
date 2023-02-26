@@ -132,7 +132,6 @@ class ChatGPTAPI {
             lastResponse = responseText
             lastInput = text
             
-            print(response)
             return responseText
         } catch {
             print("Error: \(error)")

@@ -8,13 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B41E5F0629A366D7002684EE /* LogGPTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F0529A366D7002684EE /* LogGPTApp.swift */; };
-		B41E5F0829A366D7002684EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F0729A366D7002684EE /* ContentView.swift */; };
 		B41E5F0A29A366DC002684EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B41E5F0929A366DC002684EE /* Assets.xcassets */; };
 		B41E5F1429A36718002684EE /* ChatGPTAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1329A36718002684EE /* ChatGPTAPI.swift */; };
-		B41E5F1729A44B4D002684EE /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1629A44B4C002684EE /* ViewModel.swift */; };
-		B41E5F1B29A44BBB002684EE /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1A29A44BBB002684EE /* MessageRow.swift */; };
-		B41E5F1D29A4523E002684EE /* DotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1C29A4523E002684EE /* DotLoadingView.swift */; };
-		B41E5F1F29A45311002684EE /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E5F1E29A45310002684EE /* MessageRowView.swift */; };
 		B4579B2E29A4B79900B6A0F5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4579B2D29A4B79900B6A0F5 /* ChatView.swift */; };
 		B45C215129A4E4B800C1BACE /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45C215029A4E4B800C1BACE /* ModelView.swift */; };
 		B45C215429A5002300C1BACE /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = B45C215329A5002300C1BACE /* SwiftfulLoadingIndicators */; };
@@ -23,14 +18,9 @@
 /* Begin PBXFileReference section */
 		B41E5F0229A366D7002684EE /* LogGPT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LogGPT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B41E5F0529A366D7002684EE /* LogGPTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogGPTApp.swift; sourceTree = "<group>"; };
-		B41E5F0729A366D7002684EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B41E5F0929A366DC002684EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B41E5F1329A36718002684EE /* ChatGPTAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTAPI.swift; sourceTree = "<group>"; };
 		B41E5F1529A420F6002684EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		B41E5F1629A44B4C002684EE /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		B41E5F1A29A44BBB002684EE /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
-		B41E5F1C29A4523E002684EE /* DotLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLoadingView.swift; sourceTree = "<group>"; };
-		B41E5F1E29A45310002684EE /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
 		B4579B2D29A4B79900B6A0F5 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		B45C215029A4E4B800C1BACE /* ModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,15 +56,10 @@
 		B41E5F0429A366D7002684EE /* LogGPT */ = {
 			isa = PBXGroup;
 			children = (
-				B41E5F1C29A4523E002684EE /* DotLoadingView.swift */,
-				B41E5F1E29A45310002684EE /* MessageRowView.swift */,
 				B41E5F1529A420F6002684EE /* Info.plist */,
 				B41E5F0529A366D7002684EE /* LogGPTApp.swift */,
-				B41E5F0729A366D7002684EE /* ContentView.swift */,
 				B41E5F0929A366DC002684EE /* Assets.xcassets */,
 				B41E5F1329A36718002684EE /* ChatGPTAPI.swift */,
-				B41E5F1629A44B4C002684EE /* ViewModel.swift */,
-				B41E5F1A29A44BBB002684EE /* MessageRow.swift */,
 				B4579B2D29A4B79900B6A0F5 /* ChatView.swift */,
 				B45C215029A4E4B800C1BACE /* ModelView.swift */,
 			);
@@ -157,14 +142,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B41E5F1429A36718002684EE /* ChatGPTAPI.swift in Sources */,
-				B41E5F0829A366D7002684EE /* ContentView.swift in Sources */,
-				B41E5F1729A44B4D002684EE /* ViewModel.swift in Sources */,
 				B45C215129A4E4B800C1BACE /* ModelView.swift in Sources */,
-				B41E5F1D29A4523E002684EE /* DotLoadingView.swift in Sources */,
 				B4579B2E29A4B79900B6A0F5 /* ChatView.swift in Sources */,
 				B41E5F0629A366D7002684EE /* LogGPTApp.swift in Sources */,
-				B41E5F1F29A45311002684EE /* MessageRowView.swift in Sources */,
-				B41E5F1B29A44BBB002684EE /* MessageRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

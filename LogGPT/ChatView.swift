@@ -199,15 +199,9 @@ struct ChatView: View {
 }
 
 struct Message : Identifiable {
+    let id: UUID
     let content: String
     let response: String
-    let id: UUID?
-    
-    init(content: String, response: String, id: UUID?) {
-        self.content = content
-        self.response = response
-        self.id = id
-    }
 }
 
 struct ChatView_Previews: PreviewProvider {
