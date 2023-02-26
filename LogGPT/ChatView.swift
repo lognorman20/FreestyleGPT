@@ -13,11 +13,13 @@ import AVFoundation
 struct ChatView: View {
     
     @State var inputText: String = ""
+    @State var isModal: Bool = false
+    @State var scrollProxy: ScrollViewProxy?
+    @State var allMessages: [String] = []
     @StateObject var model: ModelView = ModelView(apiKey: "***REMOVED***")
     @FocusState var isTextFieldFocused: Bool
-
+    
     let synthesizer = AVSpeechSynthesizer()
-    @State var scrollProxy: ScrollViewProxy?
 
     var body: some View {
         VStack(alignment: .center) {
@@ -59,8 +61,10 @@ struct ChatView: View {
                     }
                     .onAppear {
                         scrollProxy = proxy
+                        parseMessage(msg: model.messages.last!)
                     }
                     .onChange(of: model.messages.last?.content) { _ in
+                        parseMessage(msg: model.messages.last!)
                         withAnimation(Animation.easeInOut(duration: 1)) {
                             guard let id = model.messages.last?.id else { return }
                             proxy.scrollTo(id, anchor: .bottomTrailing)
@@ -148,9 +152,16 @@ struct ChatView: View {
         synthesizer.speak(inputVoice)
     }
     
+    func parseMessage(msg: Message) {
+        allMessages.append(msg.content)
+        allMessages.append(msg.response)
+        print(allMessages)
+    }
+    
     var topView: some View {
         HStack(alignment: .center) {
             
+            // button to clear the messages
             Button {
                 withAnimation(.easeInOut) {
                     model.clear()
@@ -164,6 +175,7 @@ struct ChatView: View {
             
             Spacer()
             
+            // title text
             VStack(spacing: 0) {
                 Text("FreestyleGPT")
                     .font(.title)
@@ -176,16 +188,11 @@ struct ChatView: View {
             
             Spacer()
             
+            // button to play the text aloud
             Button {
-//                let readMessages: [Message] = []
-                model.messages.forEach { message in
-                    // TODO: fix scroll to
-                    withAnimation(.easeInOut) {
-                        scrollProxy!.scrollTo(message.id, anchor: .center)
-                    }
-                    
-                    textToSpeech(message: message.content)
-                    textToSpeech(message: message.response)
+                if (!model.messages.isEmpty) {
+                    parseMessage(msg: model.messages.last!)
+                    self.isModal = true
                 }
             } label: {
                 Image(systemName: "play.circle")
@@ -193,7 +200,18 @@ struct ChatView: View {
                     .font(.system(size: 30))
                     .foregroundColor(model.messages.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
             }
+            .sheet(isPresented: self.$isModal, content: {
+                speakView
+            })
         }
+    }
+    
+    var speakView: some View {
+        VStack(alignment: .center) {
+            
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(MyColors.mainPurple)
     }
 }
 

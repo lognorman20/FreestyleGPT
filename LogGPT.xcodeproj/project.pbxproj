@@ -13,6 +13,7 @@
 		B4579B2E29A4B79900B6A0F5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4579B2D29A4B79900B6A0F5 /* ChatView.swift */; };
 		B45C215129A4E4B800C1BACE /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45C215029A4E4B800C1BACE /* ModelView.swift */; };
 		B45C215429A5002300C1BACE /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = B45C215329A5002300C1BACE /* SwiftfulLoadingIndicators */; };
+		B4ACA2B929AB773500E77082 /* FluidGradient in Frameworks */ = {isa = PBXBuildFile; productRef = B4ACA2B829AB773500E77082 /* FluidGradient */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B45C215429A5002300C1BACE /* SwiftfulLoadingIndicators in Frameworks */,
+				B4ACA2B929AB773500E77082 /* FluidGradient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			name = LogGPT;
 			packageProductDependencies = (
 				B45C215329A5002300C1BACE /* SwiftfulLoadingIndicators */,
+				B4ACA2B829AB773500E77082 /* FluidGradient */,
 			);
 			productName = LogGPT;
 			productReference = B41E5F0229A366D7002684EE /* LogGPT.app */;
@@ -115,6 +118,7 @@
 			mainGroup = B41E5EF929A366D7002684EE;
 			packageReferences = (
 				B45C215229A5002300C1BACE /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */,
+				B4ACA2B729AB773500E77082 /* XCRemoteSwiftPackageReference "FluidGradient" */,
 			);
 			productRefGroup = B41E5F0329A366D7002684EE /* Products */;
 			projectDirPath = "";
@@ -357,6 +361,14 @@
 				minimumVersion = 0.0.4;
 			};
 		};
+		B4ACA2B729AB773500E77082 /* XCRemoteSwiftPackageReference "FluidGradient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Cindori/FluidGradient";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -364,6 +376,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B45C215229A5002300C1BACE /* XCRemoteSwiftPackageReference "SwiftfulLoadingIndicators" */;
 			productName = SwiftfulLoadingIndicators;
+		};
+		B4ACA2B829AB773500E77082 /* FluidGradient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B4ACA2B729AB773500E77082 /* XCRemoteSwiftPackageReference "FluidGradient" */;
+			productName = FluidGradient;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
