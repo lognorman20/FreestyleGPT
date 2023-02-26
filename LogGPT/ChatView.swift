@@ -45,7 +45,7 @@ struct ChatView: View {
             
             ScrollViewReader { proxy in
                 ScrollView {
-                    Text("type in a lyric with more than five words to get started")
+                    Text("type a lyric with more than five words to get started")
                         .font(.callout)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
@@ -53,9 +53,8 @@ struct ChatView: View {
                         .padding(.top)
                     
                     LazyVStack(alignment: .center, spacing: 5) {
-                        ForEach(model.messages) { msg in
+                        ForEach(model.messages, id: \.id) { msg in
                             messageBlock(message: msg)
-                                .id(UUID())
                         }
                     }
                     .onAppear {
@@ -143,6 +142,12 @@ struct ChatView: View {
         }
     }
     
+    func textToSpeech(message: String) {
+        let inputVoice = AVSpeechUtterance(string: message)
+        inputVoice.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer.speak(inputVoice)
+    }
+    
     var topView: some View {
         HStack(alignment: .center) {
             
@@ -172,21 +177,15 @@ struct ChatView: View {
             Spacer()
             
             Button {
+//                let readMessages: [Message] = []
                 model.messages.forEach { message in
                     // TODO: fix scroll to
                     withAnimation(.easeInOut) {
                         scrollProxy!.scrollTo(message.id, anchor: .center)
                     }
                     
-                    let inputVoice = AVSpeechUtterance(string: message.content)
-                    let responseVoice = AVSpeechUtterance(string: message.response)
-                    
-                    inputVoice.voice = AVSpeechSynthesisVoice(language: "en-US")
-                    
-                    responseVoice.voice = AVSpeechSynthesisVoice(language: "en-US")
-                    
-                    synthesizer.speak(inputVoice)
-                    synthesizer.speak(responseVoice)
+                    textToSpeech(message: message.content)
+                    textToSpeech(message: message.response)
                 }
             } label: {
                 Image(systemName: "play.circle")
