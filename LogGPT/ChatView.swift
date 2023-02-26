@@ -15,8 +15,8 @@ struct ChatView: View {
     @State var inputText: String = ""
     @State var isModal: Bool = false
     @State var scrollProxy: ScrollViewProxy?
-    @State var allMessages: [String] = []
     @StateObject var model: ModelView = ModelView(apiKey: "***REMOVED***")
+    @ObservedObject var allMsgs = Messages()
     @FocusState var isTextFieldFocused: Bool
     
     let synthesizer = AVSpeechSynthesizer()
@@ -64,10 +64,12 @@ struct ChatView: View {
                         parseMessage(msg: model.messages.last!)
                     }
                     .onChange(of: model.messages.last?.content) { _ in
-                        parseMessage(msg: model.messages.last!)
-                        withAnimation(Animation.easeInOut(duration: 1)) {
-                            guard let id = model.messages.last?.id else { return }
-                            proxy.scrollTo(id, anchor: .bottomTrailing)
+                        if (!model.messages.isEmpty) {
+                            parseMessage(msg: model.messages.last!)
+                            withAnimation(Animation.easeInOut(duration: 1)) {
+                                guard let id = model.messages.last?.id else { return }
+                                proxy.scrollTo(id, anchor: .bottomTrailing)
+                            }
                         }
                     }
                 }
@@ -153,9 +155,8 @@ struct ChatView: View {
     }
     
     func parseMessage(msg: Message) {
-        allMessages.append(msg.content)
-        allMessages.append(msg.response)
-        print(allMessages)
+        self.allMsgs.addMsg(text: msg.content)
+        self.allMsgs.addMsg(text: msg.response)
     }
     
     var topView: some View {
@@ -165,6 +166,7 @@ struct ChatView: View {
             Button {
                 withAnimation(.easeInOut) {
                     model.clear()
+                    self.allMsgs.clear()
                 }
             } label: {
                 Image(systemName: "arrow.uturn.forward.circle")
@@ -172,6 +174,7 @@ struct ChatView: View {
                     .font(.system(size: 30))
                     .foregroundColor(model.messages.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
             }
+            .disabled(model.messages.isEmpty)
             
             Spacer()
             
@@ -182,7 +185,7 @@ struct ChatView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(Color("deeppurple"))
                 
-                Text("from @zklogno")
+                Text("@zklogno")
                     .font(.footnote)
             }
             
@@ -191,27 +194,41 @@ struct ChatView: View {
             // button to play the text aloud
             Button {
                 if (!model.messages.isEmpty) {
-                    parseMessage(msg: model.messages.last!)
                     self.isModal = true
                 }
             } label: {
                 Image(systemName: "play.circle")
                     .padding()
                     .font(.system(size: 30))
-                    .foregroundColor(model.messages.isEmpty ? MyColors.accentPurple : MyColors.mainPurple)
+                    .foregroundColor(!model.messages.isEmpty ? MyColors.mainPurple : MyColors.accentPurple)
             }
             .sheet(isPresented: self.$isModal, content: {
                 speakView
             })
+            .disabled(model.messages.isEmpty)
         }
     }
     
     var speakView: some View {
         VStack(alignment: .center) {
-            
+            ForEach(self.allMsgs.data, id: \.self) { msg in
+                Text(msg)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(MyColors.mainPurple)
+    }
+}
+
+class Messages : ObservableObject {
+    @Published var data: [String] = []
+    
+    func addMsg(text: String) {
+        self.data.append(text)
+    }
+    
+    func clear() {
+        self.data.removeAll()
     }
 }
 

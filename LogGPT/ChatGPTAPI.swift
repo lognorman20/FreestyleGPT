@@ -98,7 +98,7 @@ class ChatGPTAPI {
             "temperature" : 1,
             "top_p" : 0.5,
             "frequency_penalty" : 2,
-            "best_of": 3,
+//            "best_of": 3,
             "presence_penalty" : 0,
             "stop": [
                 "\n",
