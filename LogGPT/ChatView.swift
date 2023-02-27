@@ -211,21 +211,19 @@ struct ChatView: View {
     
     // TODO: Build out UI for modal view
     var speakView: some View {
-        VStack(alignment: .center) {
-            ForEach(self.allMsgs.data, id: \.id) { msg in
-                Text(msg.text)
-                    .foregroundColor(.white)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding()
-            }
-        }
-        .onAppear {
-            // TODO: Figure out how to make each lyric light up when being read
-            self.allMsgs.data.forEach { msg in
-                msg.isSelected = true
-                textToSpeech(message: msg.text)
-                msg.isSelected = false
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(alignment: .center, spacing: 3) {
+                    ForEach(self.allMsgs.data, id: \.id) { msg in
+                        Text(msg.text)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .font(.title)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .fontWeight(.bold)
+                            .padding()
+                    }
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

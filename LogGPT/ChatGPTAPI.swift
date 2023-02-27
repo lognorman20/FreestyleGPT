@@ -80,7 +80,7 @@ class ChatGPTAPI {
     
     private func generatePrompt(text: String) -> String {
         // take into account the last message
-        let prompt = basePrompt3 + "Human: \(lastInput)\n" + "AI: \(lastResponse)\n" + "Human: \(text)\nAI: "
+        let prompt = basePrompt3 + "Human: \(lastInput)\n" + "AI: \(lastResponse)\n" + "Human: \(text)\nAI:"
         return prompt
     }
     
@@ -105,7 +105,6 @@ class ChatGPTAPI {
     }
     
     // TODO: Make a function to handle duplicate rhyme words
-    // TODO: Handle when the api returns nothing
     func sendMessage(_ text: String) async throws -> String {
         var urlRequest = self.urlRequest
         urlRequest.httpBody = try jsonBody(text: text, stream: false)
@@ -123,6 +122,21 @@ class ChatGPTAPI {
         do {
             let response = try self.jsonDecoder.decode(CompletionResponse.self, from: data)
             let responseText = response.choices.first?.text ?? "Couldn't get a response."
+            let prevLast: Set = [
+                getLast(text: lastResponse),
+                getLast(text: lastInput),
+                getLast(text: text)
+            ]
+            
+            // error handling
+            if (responseText.isEmpty) {
+                return "ERROR: Could not get a response, please try again later."
+            } else if (prevLast.contains(getLast(text: responseText))) {
+                print("got a duplicate word, trying another")
+                return try await sendMessage(responseText)
+            }
+            
+            // update last response
             lastResponse = responseText
             lastInput = text
             
@@ -131,6 +145,11 @@ class ChatGPTAPI {
             print("Error: \(error)")
             throw error
         }
+    }
+    
+    func getLast(text: String) -> String {
+        let output = text.components(separatedBy: " ").last!.trimmingCharacters(in: .punctuationCharacters)
+        return output
     }
 }
 
