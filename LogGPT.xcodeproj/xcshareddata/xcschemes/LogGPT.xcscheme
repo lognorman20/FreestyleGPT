@@ -53,7 +53,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "apiKey"
-            value = "***REMOVED***"
+            value = "OH NAH"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
