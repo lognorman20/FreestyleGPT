@@ -14,7 +14,6 @@ struct ChatView: View {
     
     @State var inputText: String = ""
     @State var isModal: Bool = false
-    @State var scrollProxy: ScrollViewProxy?
     @StateObject var model: ModelView = ModelView(apiKey: ProcessInfo.processInfo.environment["apiKey"]!)
     @ObservedObject var allMsgs = Messages()
     @FocusState var isTextFieldFocused: Bool
@@ -60,7 +59,6 @@ struct ChatView: View {
                         }
                     }
                     .onAppear {
-                        scrollProxy = proxy
                         parseMessage(msg: model.messages.last!)
                     }
                     .onChange(of: model.messages.last?.content) { _ in
@@ -209,11 +207,11 @@ struct ChatView: View {
         }
     }
     
-    // TODO: Build out UI for modal view
+    // TODO: Fix autoscroll to lyric in modal view
     var speakView: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                VStack(alignment: .center, spacing: 3) {
+                LazyVStack(alignment: .center, spacing: 3) {
                     ForEach(self.allMsgs.data, id: \.id) { msg in
                         Text(msg.text)
                             .foregroundColor(.white)
@@ -222,6 +220,12 @@ struct ChatView: View {
                             .fixedSize(horizontal: false, vertical: true)
                             .fontWeight(.bold)
                             .padding()
+                    }
+                }
+                .onAppear {
+                    self.allMsgs.data.forEach { msg in
+                        proxy.scrollTo(msg.id, anchor: .bottomTrailing)
+                        textToSpeech(message: msg.text)
                     }
                 }
             }

@@ -104,7 +104,6 @@ class ChatGPTAPI {
         return try JSONSerialization.data(withJSONObject: jsonBody)
     }
     
-    // TODO: Make a function to handle duplicate rhyme words
     func sendMessage(_ text: String) async throws -> String {
         var urlRequest = self.urlRequest
         urlRequest.httpBody = try jsonBody(text: text, stream: false)
